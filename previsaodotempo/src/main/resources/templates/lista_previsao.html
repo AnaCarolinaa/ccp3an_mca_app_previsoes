@@ -20,6 +20,9 @@
 							<th>Temperatura Maxima</th>
 							<th>Temperatura Minima</th>
 							<th>Humidade do Ar</th>
+							<th>Latitude</th>
+							<th>Longitude</th>
+							<th>Data/Hora</th>
 							<th>Descrição</th>
 						</tr>
 					</thead>
@@ -29,6 +32,9 @@
 							<td th:text="${previsao.temperaturamax}"></td>
 							<td th:text="${previsao.temperaturamin}"></td>
 							<td th:text="${previsao.humidadedoar}"></td>
+							<td th:text="${previsao.latitude}"></td>
+							<td th:text="${previsao.longitude}"></td>
+							<td th:text="${previsao.datahora}"></td>
 							<td th:text="${previsao.descricao}"></td>
 						</tr>
 					</tbody>

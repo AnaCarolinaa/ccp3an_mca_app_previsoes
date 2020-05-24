@@ -1,34 +1,43 @@
 package br.usjt.previsaodotempo.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
-import br.usjt.previsaodotempo.repository.PrevisaoDoTempoRepository;
 import br.usjt.previsaodotempo.model.Previsao;
+import br.usjt.previsaodotempo.repository.PrevisaoDoTempoRepository;
+import br.usjt.previsaodotempo.service.PrevisaoDoTempoService;
 
 @Controller
 public class PrevisaoDoTempoController 
 {
 	@Autowired
-	private PrevisaoDoTempoRepository previsaoDoTempoRepository;
+	private PrevisaoDoTempoService previsaoDoTempoService;
+	
+	@Autowired
+	public PrevisaoDoTempoController(PrevisaoDoTempoService previsaoDoTempoService)
+	{
+		this.previsaoDoTempoService = previsaoDoTempoService;
+	}
 	
 	@GetMapping("/previsao")
 	public ModelAndView listaPrevisaoDoTempo()
 	{
 		ModelAndView modelAndView = new ModelAndView("lista_previsao");
-		List<Previsao> previsao = previsaoDoTempoRepository.findAll();
+		modelAndView.addObject(new Previsao());
+		List<Previsao> previsao = previsaoDoTempoService.listarTodos();
 		modelAndView.addObject("previsao", previsao);
 		return modelAndView;
 	}
 	
 	@PostMapping("/previsao")
-	public String salvar(Previsao previsaoDoTempo)	
+	public String salvar(Previsao previsao)	
 	{	
-		 previsaoDoTempoRepository.save(previsaoDoTempo);	
+		 previsaoDoTempoService.salvar(previsao);
 		 return	"redirect:/previsao";	
 	}		
 }
